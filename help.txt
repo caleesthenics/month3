@@ -1,0 +1,21 @@
+Python version check:
+python3 --version
+ python3.11 --version
+
+Python installation:
+sudo apt install python3
+
+venv create:
+python3 -m venv venv
+
+Activation venv:
+source venv/bin/activate
+
+Deactivation venv:
+deactivate
+
+Flet install:
+pip install flet[all]
+
+
+
