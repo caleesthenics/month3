@@ -12,6 +12,8 @@ def main(page: ft.Page):
 
     age_input = ft.TextField(label = 'vvedite vozrast')
 
+    error_text = ft.Text()
+
     def button(_):
         name = name_input.value.strip()
         age = age_input.value
@@ -24,24 +26,28 @@ def main(page: ft.Page):
                 greeting_text.value = f'{time.strftime("%Y-%m-%d %H:%M")} Dobroe utro {name}. Tebe {age} let'
                 name_input.value = None
                 age_input.value = None
+                error_text.value = None
             
             elif int(hour) >= 12 and int(hour) < 18:
                 greeting_text.value = f'{time.strftime("%Y-%m-%d %H:%M")} Dobrii den {name}. Tebe {age} let'
                 name_input.value = None
                 age_input.value = None
+                error_text.value = None
             
             elif int(hour) >= 18 and int(hour) < 24:
                 greeting_text.value = f'{time.strftime("%Y-%m-%d %H:%M")} Dobrii ve4er {name}. Tebe {age} let'
                 name_input.value = None
                 age_input.value = None
+                error_text.value = None
             
             elif int(hour) >= 0 and int(hour) < 6:
                 greeting_text.value = f'{time.strftime("%Y-%m-%d %H:%M")} Dobroi no4i {name}. Tebe {age} let'
                 name_input.value = None
                 age_input.value = None
+                error_text.value = None
 
         else:
-            raise ValueError('Vvedite 4to-to') 
+            error_text.value = 'Pole name ili age ne zapolneno'
         
         page.update()
 
@@ -58,7 +64,7 @@ def main(page: ft.Page):
                             
     knopka = ft.Button('send', on_click = button) 
 
-    page.add(greeting_text, name_input,age_input, knopka,knopka2)
+    page.add(greeting_text, name_input,age_input, knopka,knopka2, error_text)
 
 
 ft.app(target = main)
