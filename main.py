@@ -9,7 +9,7 @@ def main(page: ft.Page):
     greeting_text = ft.Text("Hello world!")
 
 
-    error_text = ft.Text()
+    error_text = ft.Text(color =ft.Colors.RED)
 
     gr_history = []
 
@@ -17,12 +17,7 @@ def main(page: ft.Page):
     #     history_controls = [ft.Text('istoriya privetstvii')]
 
     history_text = ft.Text(f'Istoriya privetstvii:')
-
-
-
-
-
-
+    history_text2 = ft.Text(color =ft.Colors.RED)
 
     def button(_):
         name = name_input.value.strip()
@@ -57,7 +52,7 @@ def main(page: ft.Page):
                 error_text.value = None
             
             gr_history.append(f'{time.strftime("%Y-%m-%d %H:%M")} - {name}')
-            history_text.value = 'istoriya privetstviya:\n' + '\n'.join(gr_history) 
+            history_text2.value = '\n'.join(gr_history) 
 
         else:
             error_text.value = 'Pole name ili age ne zapolneno'
@@ -75,20 +70,43 @@ def main(page: ft.Page):
         page.update()
 
     def history_remove(_):
-        gr_history.clear
-        history_text.value = 'Istoriya privetstviya'
+        gr_history.clear()
+        history_text.value = 'Istoriya privetstvii:'
+        history_text2.value = ''
         greeting_text.value = 'Hello World!'
         page.update()
-        
+
+
+    def last_delete(_):
+        if gr_history:
+            if gr_history[-1] != '':
+                del gr_history[-1]
+                history_text2.value = '\n'.join(gr_history) 
+        else:
+            error_text.value = 'istoriya pusta'
+        page.update()
+    
+    def sort(_):
+        if gr_history:
+            gr_history.sort()
+            history_text2.value = '\n'.join(gr_history) 
+            print(gr_history)
+        else:
+            error_text.value = 'ne4ego sortirovat'
+        page.update()
+    
+    button2 = ft.ElevatedButton('Sort',on_click= sort)
 
     knopka2 = ft.IconButton(icon = ft.Icons.SUNNY,on_click = theme_button)
+
+    button1 = ft.ElevatedButton('Delete',on_click= last_delete)
 
     knopka3 = ft.Button('remove', on_click = history_remove)
 
     knopka = ft.Button('send', on_click = button) 
 
     page.add(ft.Row([greeting_text], alignment = ft.MainAxisAlignment.CENTER),name_input,age_input,
-             ft.Row([knopka,knopka2,knopka3],alignment= ft.MainAxisAlignment.CENTER),error_text,history_text
+             ft.Row([knopka,knopka2,knopka3,button1,button2],alignment= ft.MainAxisAlignment.CENTER),error_text,history_text,history_text2
     )
 
 
