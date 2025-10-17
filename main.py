@@ -6,6 +6,9 @@ def main(page: ft.Page):
 
     page.theme_mode = ft.ThemeMode.LIGHT
 
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    
+
     greeting_text = ft.Text("Hello world!")
 
 
