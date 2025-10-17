@@ -9,7 +9,7 @@ def main(page: ft.Page):
     task_list = ft.Column(spacing = 10)
 
     def create_task_row(task_id, task_text):
-        task_field = ft.TextField(value = task_text,read_only= True, expand = True)
+        task_field = ft.TextField(value = task_text,read_only= True, expand = True, on_submit= save_edit)
 
         def enable_edit(_):
             task_field.read_only = False
@@ -36,7 +36,7 @@ def main(page: ft.Page):
 
 
     
-    def add_task():
+    def add_task(_):
         if task_input.value:
             task = task_input.value
             task_id = main_db.add_task(task)
