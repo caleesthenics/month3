@@ -14,11 +14,19 @@ def main(page: ft.Page):
         def enable_edit(_):
             task_field.read_only = False
             task_field.update()
+        
+        def save_edit(_):
+            main_db.update_task(task_id = task_id, new_task= task_field.value)
+            task_field.read_only =True
+            task_field.update()
+            page.update()
 
-        enable_button = ft.IconButton(icon= ft.Icons.EDIT, tooltip= 'redaktirovat', on_click = enable_edit)
+        enable_button = ft.IconButton(icon= ft.Icons.EDIT, tooltip= 'Редактировать', on_click = enable_edit)
+
+        save_button = ft.IconButton(icon = ft.Icons.SAVE_ALT_ROUNDED,on_click= save_edit)
 
 
-        return ft.Row([task_field, enable_button])
+        return ft.Row([task_field, enable_button,save_button])
     
     def load_task():
         task_list.controls.clear()
@@ -37,8 +45,8 @@ def main(page: ft.Page):
             page.update()
 
 
-    task_input = ft.TextField(label = 'Vvedite zada4u', expand = True, on_submit= add_task)
-    add_button = ft.IconButton(icon=ft.Icons.ADD, tooltip= 'dobavit zada4u',on_click= add_task )
+    task_input = ft.TextField(label = 'Введите задачу', expand = True, on_submit= add_task)
+    add_button = ft.IconButton(icon=ft.Icons.ADD, tooltip= 'Добавить задачу',on_click= add_task )
     
     page.add(ft.Row([task_input,add_button, ]),task_list)
 
